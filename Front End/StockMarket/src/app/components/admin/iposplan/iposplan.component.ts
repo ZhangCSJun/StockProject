@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IPODetails } from '../../../entity/iposdetails';
 import { RequestService } from '../../../services/request.service';
-import { ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 import * as $ from 'jquery';
 
 @Component({
@@ -11,6 +11,7 @@ import * as $ from 'jquery';
 })
 export class IposplanComponent implements OnInit {
 
+  public alertMsg:string="";
   public ipoId:string="";
   public iposDetail:IPODetails = new IPODetails();
   // page status
@@ -24,7 +25,7 @@ export class IposplanComponent implements OnInit {
     openDateTime:"",
   }
 
-  constructor(private routerinfo:ActivatedRoute, private reqServices:RequestService) { }
+  constructor(private router:Router, private routerinfo:ActivatedRoute, private reqServices:RequestService) { }
 
   ngOnInit(): void {
     // keep page status
@@ -37,6 +38,7 @@ export class IposplanComponent implements OnInit {
       this.iposDetail.pricePerShare = objMap.get('pricePerShare');
       this.iposDetail.totalNumberOfShares = objMap.get('totalNumberOfShares');
       this.iposDetail.openDatetime = objMap.get('openDatetime');
+      this.iposDetail.remark = objMap.get('remark');
       console.log(this.iposDetail);
     }
   }
@@ -54,20 +56,34 @@ export class IposplanComponent implements OnInit {
         "stockExchange": this.iposDetail.stockExchange,
         "pricePerShare": this.iposDetail.pricePerShare,
         "totalNumberOfShares": this.iposDetail.totalNumberOfShares,
-        "openDatetime": this.iposDetail.openDatetime
+        "openDatetime": this.iposDetail.openDatetime,
+        "remark": this.iposDetail.remark
       }
       console.log(`ipoPlan:${JSON.stringify(ipoPlan)}`);
-      // when edit model, then register ipoPlan
+      // when register model
       if(this.pageStatus==0){
         this.reqServices.addIPOsPlan(ipoPlan).subscribe((response:any)=>{
           // alert(`code:${response.body.code} msg:${response.body.message}`);
+          $("#fail").removeClass("alert-danger").addClass("alert-success");
+          this.alertMsg = "register success";
+          $("#fail").show();
+          setTimeout(()=>{
+            this.router.navigate(['/admin/updateipos']);
+          },2000);
         },(errorResponse)=>{
           // TODO
           console.log(errorResponse);
         });
+        // when edit model
       } else {
         this.reqServices.updateIPOsPlan(ipoPlan).subscribe((response:any)=>{
           // alert(`code:${response.body.code} msg:${response.body.message}`);
+          $("#fail").removeClass("alert-danger").addClass("alert-success");
+          this.alertMsg = "update success";
+          $("#fail").show();
+          setTimeout(()=>{
+            this.router.navigate(['/admin/updateipos']);
+          },2000);
         },(errorResponse)=>{
             // TODO
             console.log(errorResponse);

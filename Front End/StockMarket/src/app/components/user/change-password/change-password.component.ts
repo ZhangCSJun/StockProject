@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../../services/request.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import * as $ from 'jquery';
 
 @Component({
@@ -29,13 +29,16 @@ export class ChangePasswordComponent implements OnInit {
   public pwdtip:string="Make sure it's at least 15 character OR at least 8 character" +
   " including a number and a lowercase letter";
 
-  constructor(private reqService:RequestService, private router:Router, private routerinfo:ActivatedRoute ) { }
+  constructor(private reqService:RequestService, private router:Router) { }
 
   ngOnInit(): void {
-    this.routerinfo.queryParams.subscribe(queryParam=>{
-      this.userId = queryParam.userId;
-      console.log(this.userId);
-    });
+    this.userId = localStorage.getItem("userId");
+
+    // if could not get userId form local storage, goto system error page
+    if(this.userId =='undefined' || this.userId == ""){
+      alert(this.userId);
+      this.router.navigate(['error']);
+    }
   }
 
   onSubmit(value:any){

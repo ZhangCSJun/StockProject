@@ -35,6 +35,8 @@ export class LoginComponent implements OnInit {
         if(response.body.status == 200){
           // if login successful
           if(response.body.code == "001"){
+            // clear localstorage
+            localStorage.clear();
             // save token
             localStorage.setItem("token",response.headers.get('tkn'));
             // save userId
@@ -43,18 +45,17 @@ export class LoginComponent implements OnInit {
             if(response.body.business.role=="1"){
               this.router.navigate(['admin/uploadxls']);
             } else { 
-              this.router.navigate(['user/profile'],{queryParams: {userId: response.body.business.id}});
+              this.router.navigate(['user/profile']);
             }
           } else {
             this.errorMsg.loginFail = "Incorrect username or password.";
           }
         } 
       }, (errorResponse:any)=>{
-        console.log(errorResponse);
         if(errorResponse.status == 400){
           this.errorMsg.loginFail = errorResponse.error.message;
         } else {
-          this.errorMsg.loginFail = "Fail to Connect to service API ";
+          this.errorMsg.loginFail = "Connect to API server fail";
         }
       })
     }
@@ -70,12 +71,12 @@ export class LoginComponent implements OnInit {
     this.errorMsg.password = "";
 
     let checkResult:boolean=true;
-    // check input username
+    // Check whether the user name has been entered
     if(!formValue.username){
       this.errorMsg.username = "username can't be empty!"
       checkResult = false;
     };
-    // check input password
+    // Check whether the password has been entered
     if(!formValue.password){
       this.errorMsg.password = "password can't be empty!"
       checkResult = false;

@@ -9,7 +9,23 @@ import * as $ from 'jquery';
   styleUrls: ['./charts-comparison.component.scss']
 })
 export class ChartsComparisonComponent implements OnInit {
-
+  // month array
+  month:Array<string>=['01','02','03','04','05','06','07','08','09','10','11','12'];
+  monthDict:Object={
+    '01':'Jun',
+    '02':'Feb',
+    '03':'Mar',
+    '04':'Apr',
+    '05':'May',
+    '06':'Jun',
+    '07':'Jul',
+    '08':'Aug',
+    '09':'Sep',
+    '10':'Oct',
+    '11':'Nov',
+    '12':'Dec'
+  };
+  chartType:any = {type: 'bar'};
   public dispFlg:boolean=false;
 
   public alertMsg:string="";
@@ -17,7 +33,7 @@ export class ChartsComparisonComponent implements OnInit {
   public chartsTypes:Array<any>=[
     {
       value:'0',
-      type:'sing company over different periods of time',
+      type:'single company over different periods of time',
     }, {
       value:'1',
       type:'different companies over a specific period',
@@ -35,124 +51,177 @@ export class ChartsComparisonComponent implements OnInit {
     },{
       value:'2017',
       year:'2017'
-    },{
-      value:'2016',
-      year:'2016'
-    },{
-      value:'2015',
-      year:'2015'
     }];
     public period:Array<any>=[
       {
-        value:'0',
+        value:'1',
         period:'1Q'
       },{
-        value:'1',
+        value:'2',
         period:'2Q'
       },{
-        value:'2',
+        value:'3',
         period:'3Q'
       },{
-        value:'3',
+        value:'4',
         period:'4Q'
       }];
+  public company:any;
 
-      public company:Array<any>=[
-        {
-          code:'201',
-          name:'Tian Mao Mall'
-        },{
-          code:'202',
-          name:'Jing Dong Mall'
-        },{
-          code:'203',
-          name:'Tao Bao'
-        },{
-          code:'204',
-          name:'VIP SALON'
-        }];
 
-  // 创建表格对象
-  public chartOption3: any = {};
+
   constructor(private reqService:RequestService) { }
 
   ngOnInit(): void {
-
-    // this.initChart3();
-  }
-
-
-  initChart3(reqParams:any) {
-
-    this.reqService.getDataSet(reqParams).subscribe((response:any)=>{
-      let dimension:Array<any>=response.dimension;
-      let productions:Array<any>=response.production;
-      let series:Array<any>=response.series;
-
-      // fill chart dataset
-      this.chartOption3 = {
-        legend: {},
-        tooltip: {},
-        dataset: {
-            dimensions: dimension,
-            source: productions,
-        },
-        xAxis: {type: 'category'},
-        yAxis: {},
-        series: series,
-      }
-      let chart = echarts.init(document.getElementById('echarts'));
-      chart.setOption(this.chartOption3);
-    })
-
-  }
-
-
-  selType(evt:any){
-    this.selectedType = evt.target.value;
-    this.dispFlg=true;
-  }
-
-  showChart(){
-    let reqParams = {'companyCode':['2198','2132'],
-                      'year':'2019',
-                      'quater':'2'};
-                      console.log(JSON.stringify(reqParams));
-    this.reqService.getDataSet(reqParams).subscribe((response:any)=>{
+    this.selectedType = "0";
+    this.reqService.getAllCompanyName().subscribe((response:any)=>{
       console.log(response);
+      this.company = response.body.business.data;
+      console.log(this.company);
     },(errorResponse)=>{
       console.log(errorResponse);
     })
   }
 
+  selType(evt:any){
+    this.selectedType = evt.target.value;
+  }
 
-  showChart1(){
+  /**
+   * 
+   */
+  showChart(){
+    // check query condition
+    if(!this.checkSelectedValue()){
+      return;
+    }
 
-    let reqParams;
+    // chart option 
+    let chartOption3:any = {};
+    // Chart query condition
+    let queryContion:any;
+    // specified company name
+    let companyName:Array<any>=[];
+    // single company chart
     if(this.selectedType=='0'){
-      console.log($('#year').val());
-      reqParams={
-        type:"0",
-        year:$('#year').val(),
-        comapnyCode:$('#company').val()
-      }
-      this.initChart3(reqParams);
-    }else if(this.selectedType=='1'){
-      this.alertMsg = "";
-
-      let companyCodeList:Array<string>=$('#mutilcompany').val();
-      if(companyCodeList==undefined || companyCodeList.length==0||companyCodeList.length==1){
-        this.alertMsg="at least select tow companies";
-      }else if(companyCodeList.length>3){
-        this.alertMsg="no more than three companies to be selected";
-      } else {
-        let reqParams={
-          type:"1",
-          year:$('#period').val(),
-          comapnyCode:$('#mutilcompany').val()
-        }
-        this.initChart3(reqParams);
+      queryContion={
+        'companyCode':[$('#company').val()],
+        'year':$('#year').val(),
+        'quater':$('#period').val()
+      };
+      companyName.push($('#company').find('option:selected').text())
+      // two companies comparison chart
+    } else if(this.selectedType =='1'){
+      queryContion={
+        'companyCode':$('#mutilcompany').val(),
+        'year':$('#year').val(),
+        'quater':$('#period').val()
+      };
+      let selectedItem = $('#mutilcompany').find('option:selected');
+      console.log(selectedItem);
+      for(let idx=0; idx<selectedItem.length; idx++){
+        companyName.push(selectedItem[idx].text);
       }
     }
+
+    console.log(JSON.stringify(queryContion));
+    
+    let dataSetInfo:any;
+    let sources:Array<any>=[];
+    let series:Array<any>=[];
+    let grids:any;
+    let xAxiss:any;
+    let yAxiss:any;
+
+    // Get DataSet
+    this.reqService.getDataSet(queryContion).subscribe((response:any)=>{
+      console.log(response);
+      console.log(companyName);
+      companyName.forEach( cpname =>{
+        if (response.body.business.data.hasOwnProperty(cpname)) {
+          let dataSet:any = response.body.business.data[cpname];
+          if(dataSet!=null && dataSet.length>0){
+            sources.push(dataSet);
+          }
+        }
+      });
+      console.log(sources);
+      if(sources.length>0){
+        if(sources.length == 1){
+          grids={};
+          xAxiss = {type: 'category'};
+          yAxiss = {type: 'value'};
+          dataSetInfo={
+            source:sources[0]
+          }
+          series= [
+            {type: 'bar'},
+            {type: 'bar'},
+            {type: 'bar'}
+          ]
+        } else if(sources.length == 2){
+          grids=[{bottom: '60%'},{top: '60%'}];
+          xAxiss = [{type: 'category', gridIndex: 0}, {type: 'category', gridIndex: 1}];
+          yAxiss = [{type: 'value', gridIndex: 0}, {type: 'value', gridIndex: 1}]
+          dataSetInfo=[{
+            source:sources[0]
+          },{
+            source:sources[1]
+          }]
+          series= [
+            {type: 'bar',datasetIndex: 0},
+            {type: 'bar',datasetIndex: 0},
+            {type: 'bar',datasetIndex: 0},
+            {type: 'bar',xAxisIndex: 1, yAxisIndex: 1,datasetIndex: 1},
+            {type: 'bar',xAxisIndex: 1, yAxisIndex: 1,datasetIndex: 1},
+            {type: 'bar',xAxisIndex: 1, yAxisIndex: 1,datasetIndex: 1}]
+        }
+
+        // fill chart dataset
+        chartOption3 = {
+          legend: {},
+          tooltip: {},
+          dataset: dataSetInfo,
+          grid: grids,
+          xAxis: xAxiss,
+          yAxis: yAxiss,
+          series: series,
+        };
+        let chart = echarts.init(document.getElementById('echarts'));
+        chart.clear();
+        chart.setOption(chartOption3);
+      } else {
+        alert(response.body.message);
+      }
+    },(errorResponse)=>{
+      console.log(errorResponse);
+    })
+  }
+
+  /**
+   * check query condition
+   */
+  checkSelectedValue():boolean{
+    let checkResult = true;
+
+    // unknow select type, do nothing
+    if(this.selectedType != "0" && this.selectedType != "1"){
+      checkResult = false;
+    }
+    // verify options
+    if(this.selectedType=='1'){
+        this.alertMsg = "";
+  
+        let companyCodeList:Array<string>=$('#mutilcompany').val();
+        if(companyCodeList==undefined || companyCodeList.length==0||companyCodeList.length==1){
+          this.alertMsg="at least select tow companies";
+          checkResult = false;
+        }else if(companyCodeList.length>2){
+          this.alertMsg="no more than two companies to be selected";
+          checkResult = false;
+        }
+      }
+
+    return checkResult;
   }
 }

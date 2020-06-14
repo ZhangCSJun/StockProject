@@ -38,8 +38,15 @@
                     <span class="text-danger" *ngIf="validMsg.openDateTime !==''">{{validMsg.openDateTime}}</span>
                 </td>
             </tr>
-            <tr class="bg-white text-light">
-                <td colspan="2" class="text-right">
+            <tr>
+                <td>Remark</td>
+                <td>
+                    <input class="form-control" type="text" [(ngModel)]="iposDetail.remark">
+                </td>
+            </tr>
+            <tr class="bg-white text-light no-bodder-bottom">
+                <td><div id="fail" class="alertInit alert alert-danger" contenteditable="true" [textContent]="alertMsg" (input)="alertMsg=$event.target.textContent">{{alertMsg}}</div></td>
+                <td class="text-right">
                     <a *ngIf="pageStatus==0 || pageStatus==1" class="btn btn-info text-white" (click)="saveIPOSplan()">Save</a>
                     &nbsp;&nbsp;
                     <a class="btn btn-info" [routerLink]="['/admin/updateipos']" routerLinkActive="router-link-active">back</a>

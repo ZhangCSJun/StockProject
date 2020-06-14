@@ -4,6 +4,7 @@ export class IPODetails {
     private _pricePerShare: string;
     private _totalNumberOfShares: string;
     private _openDatetime: string;
+    private _remark: string;
 
     get companyName():string{
         return this._companyName;
@@ -38,5 +39,12 @@ export class IPODetails {
     }
     set openDatetime(openDatetime:string){
         this._openDatetime = openDatetime;
+    }
+
+    get remark():string{
+        return this._remark;
+    }
+    set remark(remark:string){
+        this._remark = remark;
     }
 }

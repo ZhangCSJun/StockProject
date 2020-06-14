@@ -25,6 +25,7 @@
                 <th>Price per share</th>
                 <th>Total number of Shares</th>
                 <th>Open Date Time</th>
+                <th>Remark</th>
                 <th>Edit</th>
             </tr>
         </thead>
@@ -35,6 +36,7 @@
                 <td>{{item.pricePerShare}}</td>
                 <td>{{item.totalNumberOfShares}}</td>
                 <td>{{item.openDatetime}}</td>
+                <td>{{item.remark}}</td>
                 <td><a class="btn btn-info" [routerLink]="['/admin/iposplan','1']" [queryParams]="item" routerLinkActive="router-link-active">Update</a></td>
             </tr>
         </tbody>

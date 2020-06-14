@@ -18,21 +18,14 @@ export class UserprofileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(`userId:${localStorage.getItem("userId")}`);
-    // get user id from router param
-    this.routerinfo.queryParams.subscribe(queryParam=>{
-      this.userId = queryParam.userId;
-      console.log(`router passed userId:${this.userId}`);
-    });
-    // if could not get userId form router param, try to get it from local storage
-    if(this.userId==undefined || this.userId==""){
-      // if could not get userId form local storage, goto system error page
-      if(localStorage.get("userId")==undefined || localStorage.get("userId")==""){
-        this.router.navigate(['error']);
-      }
+
+    this.userId = localStorage.getItem("userId");
+
+    // if could not get userId form local storage, goto system error page
+    if(this.userId =='undefined' || this.userId == ""){
+      alert(this.userId);
+      this.router.navigate(['error']);
     }
-
-
 
     // Get user's profile info
     this.reqService.getUserProfile(this.userId).subscribe((response:any)=>{

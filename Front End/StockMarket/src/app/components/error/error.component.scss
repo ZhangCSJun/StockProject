@@ -1,1 +1,15 @@
- 
+.center-vertical{
+    position: relative;
+    transform: translate(10%, 50%);
+}
+.error-div{
+    border: solid 1px;
+    border-color: rgb(228, 131, 86);
+    border-radius:25px;
+    background-image: linear-gradient(#6492e6, #f8f4f7);
+    height: 400px;
+    width: 80%;
+    text-align: center;
+    padding-top: 50px;
+    font-size: 38px;
+}

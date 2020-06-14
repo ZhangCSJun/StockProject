@@ -36,11 +36,17 @@ export class IposComponent implements OnInit {
         if(response.body.status == 200 && response.body.code === "001"){
           this.companyNameList = response.body.business.data;
           console.log(this.companyNameList);
+          if(this.companyNameList.length>0){
+            this.isDisplay = true;
+          } else {
+            this.isDisplay = false;
+          }
         }
       }, (error:any)=>{
         console.log(error);
       })
-      this.isDisplay = true;
+    }else{
+      this.isDisplay = false;
     }
   }
 

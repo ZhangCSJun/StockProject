@@ -53,22 +53,26 @@ export class RequestService {
 
   // Get Company Name List which matched keyword
   getCompanyNameByKeyword(str:string){
-    return this.http.get(`${this.baseUrl}/company/ajax/${str}`, httpOptions);
+    return this.http.get(`${this.baseUrl}/admin/company/ajax/${str}`, httpOptions);
+  }
+
+  getAllCompanyName(){
+    return this.http.get(`${this.baseUrl}/admin/companyname`, httpOptions);
   }
 
   // Get all Company Info
   getCompaniesInfo(){
-    return this.http.get(`${this.baseUrl}/company`,  httpOptions);
+    return this.http.get(`${this.baseUrl}/admin/company`,  httpOptions);
   }
 
   // Get a Company Info which matched code
   getCompanyInfoByCode(code:string){
-    return this.http.get(`${this.baseUrl}/company/${code}`, httpOptions);
+    return this.http.get(`${this.baseUrl}/admin/company/${code}`, httpOptions);
   }
 
   // Get all Company Info which matched keyword
   getCompanyInfoByKeyword(keyword:string){
-    return this.http.get(`${this.baseUrl}/company/ajax/${keyword}`, httpOptions);
+    return this.http.get(`${this.baseUrl}/admin/company/ajax/${keyword}`, httpOptions);
   }
 
 
