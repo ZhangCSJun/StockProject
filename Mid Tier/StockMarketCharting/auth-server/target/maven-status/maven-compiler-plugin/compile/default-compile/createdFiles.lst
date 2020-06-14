@@ -1,0 +1,5 @@
+auth\server\controller\AuthController.class
+auth\server\AuthServerApplication.class
+auth\server\service\AuthService.class
+auth\server\util\JwtHandler.class
+auth\server\model\AuthInfo.class

@@ -1,0 +1,11 @@
+user\server\entity\IpoDetail.class
+user\server\controller\UserController.class
+user\server\model\CompanyResponse.class
+user\server\repository\IpodetailRepository.class
+user\server\entity\Company.class
+user\server\model\UpdateRequest.class
+user\server\UserServerApplication.class
+user\server\entity\User.class
+user\server\service\UserService.class
+user\server\model\LoginRequest.class
+user\server\repository\UserRepository.class

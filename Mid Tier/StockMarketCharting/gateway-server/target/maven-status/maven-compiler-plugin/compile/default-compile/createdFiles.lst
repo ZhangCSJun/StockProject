@@ -1,0 +1,6 @@
+gateway\server\filters\AddTokenFilter.class
+gateway\server\filters\AuthFilter.class
+gateway\server\model\AuthInfo.class
+gateway\server\filters\AllowOriginFilter.class
+gateway\server\feign\AuthServiceFeign.class
+gateway\server\ZuulServerApplication.class
