@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    tools{
+        maven 'Maven3'
+        jdk 'JDK1.8'
+    }
+    stages{
+        stage("pull code"){
+            steps{
+             checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'MyGit', url: 'https://github.com/ZhangCSJun/StockProject.git']]])
+            }
+        }
+        stage("build project"){
+            steps{
+                dir('Mid Tier/StockMarketCharting') {
+                     sh 'mvn clean install -Dmaven.test.skip=true'
+                }
+            }
+        }
+    }
+}
