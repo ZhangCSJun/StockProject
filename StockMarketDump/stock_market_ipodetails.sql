@@ -29,6 +29,7 @@ CREATE TABLE `ipodetails` (
   `pricepershare` decimal(10,0) DEFAULT '0',
   `totalnumberofshares` int(11) DEFAULT '0',
   `opendatetime` char(19) DEFAULT NULL,
+  `remark` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`,`companyname`,`stockexchange`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,7 +40,7 @@ CREATE TABLE `ipodetails` (
 
 LOCK TABLES `ipodetails` WRITE;
 /*!40000 ALTER TABLE `ipodetails` DISABLE KEYS */;
-INSERT INTO `ipodetails` VALUES ('I10000101','Tian Mao','BSE',91,8000000,'2020-06-02 10:30:01'),('I10000102','Tian Mao2','NSE',93,8200000,'2020-06-03 12:30:01'),('I10000103','Jing Dong1','NSE',900000,1000000,'20200108'),('I10000103','Jing Dong2','NSE',9026661,2000003,'20200108');
+INSERT INTO `ipodetails` VALUES ('I10000101','Tian Mao','BSE',91,8000000,'2020-06-02 10:30:01','Excellent profit3'),('I10000102','Tian Mao2','NSE',93,8200000,'2020-06-03 12:30:01','Good profit'),('I10000103','Jing Dong1','NSE',900000,1000000,'20200108','Good profit'),('I10000103','Jing Dong2','NSE',9026661,2000003,'20200108','normal profit');
 /*!40000 ALTER TABLE `ipodetails` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-04 23:02:13
+-- Dump completed on 2020-06-16  0:52:37

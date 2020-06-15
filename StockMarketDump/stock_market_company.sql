@@ -45,7 +45,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES ('C10000101','Jing Dong1','2198',98600000,'liu qiang donog','liu qiang donog','104','online electronic mall','0');
+INSERT INTO `company` VALUES ('C10000101','Jing Dong1','2198',98600000,'liu qiang donog','liu qiang donog','104','online electronic mall','0'),('C10000102','Tian Mao','2132',188600000,'ma yun','ma yun','104','online electronic mall','1');
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-04 23:02:14
+-- Dump completed on 2020-06-16  0:52:37

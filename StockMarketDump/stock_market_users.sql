@@ -42,7 +42,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('12346','John','8888888','0','John@qq.com','02181859697','1'),('12347','Tom1','1234567b','0','71885882@qq.com','02166655501','1'),('12348','William','1234567a','0','71885882@qq.com','9988776655',NULL),('12349','William2','1234568a','0','71885882@qq.com','9900000',NULL),('12350','William3','1234567a','0','71885882@qq.com','99887766',NULL),('12351','William4','1234567a','0','71885882@qq.com','8822335511',NULL),('12352','William5','1234567a','0','71885882@qq.com','8822335511',NULL),('99001','admin','admin','1','admin@qq.com','02199990001','1');
+INSERT INTO `users` VALUES ('12346','John','8888888','0','John@qq.com','02181859697','1'),('12347','Tom1','1234567a','0','71885882@qq.com','02166655501','1'),('12348','William','1234567a','0','71885882@qq.com','9988776655',NULL),('12349','William2','1234568a','0','71885882@qq.com','9900000',NULL),('12350','William3','1234567a','0','71885882@qq.com','99887766',NULL),('12351','William4','1234567a','0','71885882@qq.com','8822335511',NULL),('12352','William5','1234567a','0','71885882@qq.com','8822335511',NULL),('99001','admin','admin','1','admin@qq.com','02199990001','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-04 23:02:14
+-- Dump completed on 2020-06-16  0:52:37
