@@ -16,6 +16,11 @@
 	  <groupId>org.springframework.boot</groupId>
 	  <artifactId>spring-boot-starter-web</artifactId>
 	</dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <scope>provided</scope>
+    </dependency>
 	<dependency>
 	  <groupId>org.springframework.cloud</groupId>
 	  <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -53,7 +58,8 @@
 	<!-- /common -->
   </dependencies>
   
-	<build>
+    <build>
+      <finalName>ROOT</finalName>
 	  <plugins>
 	    <plugin>
 		  <groupId>org.springframework.boot</groupId>
