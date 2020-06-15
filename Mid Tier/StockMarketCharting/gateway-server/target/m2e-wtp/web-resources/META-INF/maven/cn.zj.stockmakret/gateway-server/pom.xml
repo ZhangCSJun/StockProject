@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>cn.zj.stockmakret</groupId>
+    <artifactId>StockMarketCharting</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>gateway-server</artifactId>
+  <name>gateway-server</name>
+  <packaging>war</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <scope>provided</scope>
+    </dependency>
+	<dependency>
+	  <groupId>org.springframework.cloud</groupId>
+	  <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+	</dependency>
+	<dependency>  
+	  <groupId>org.springframework.cloud</groupId>  
+	  <artifactId>spring-cloud-starter-eureka</artifactId>
+	  <version>1.4.4.RELEASE</version>
+	</dependency>
+	<dependency>  
+	  <groupId>org.springframework.cloud</groupId>  
+	  <artifactId>spring-cloud-starter-feign</artifactId>
+	  <version>1.4.4.RELEASE</version>
+	</dependency> 
+	<dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-starter-test</artifactId>
+	  <scope>test</scope>
+	</dependency>
+  	<!-- customize common -->
+	<dependency>
+	  <groupId>cn.zj.stockmakret</groupId>
+	  <artifactId>common</artifactId>
+	</dependency>
+	<!-- /common -->
+  </dependencies>
+
+  	<build>
+      <finalName>ROOT</finalName>
+	  <plugins>
+	    <plugin>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-maven-plugin</artifactId>
+	    </plugin>
+	  </plugins>
+	</build>
+</project>
