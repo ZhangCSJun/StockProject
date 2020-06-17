@@ -1,0 +1,14 @@
+# Build image for java runtime enviroment
+FROM openjdk:8-jre 
+
+# Work in current dir
+WORKDIR /
+
+#COPY jar into container
+ADD admin-server-0.0.1-SNAPSHOT.jar admin.jar
+
+#Expose container's port
+EXPOSE 8099
+
+#Start up 
+CMD java -jar admin.jar

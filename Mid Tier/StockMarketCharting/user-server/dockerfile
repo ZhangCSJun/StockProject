@@ -1,0 +1,14 @@
+# Build image for java runtime enviroment
+FROM openjdk:8-jre 
+
+# Work in current dir
+WORKDIR /
+
+#COPY jar into container
+ADD user-server-0.0.1-SNAPSHOT.jar userserver.jar
+
+#Expose container's port
+EXPOSE 8098
+
+#Start up 
+CMD java -jar userserver.jar
