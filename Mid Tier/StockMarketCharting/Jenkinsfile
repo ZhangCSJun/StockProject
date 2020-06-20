@@ -20,27 +20,27 @@ pipeline {
         stage("deploy project"){
             steps{
                 dir('Mid Tier/StockMarketCharting/eureka-server') {
-                     sh 'cp -f target/*.jar .'
+                     sh 'cp -f target/eureka-0.0.1-SNAPSHOT.jar .'
                      sh 'docker build -t eureka:0.1 .'
                      sh 'docker run -d -p 8761:8761 eureka:0.1'
                 }
                 dir('Mid Tier/StockMarketCharting/gateway-server') {
-                     sh 'cp -f target/*.jar .'
+                     sh 'cp -f target/gateway-0.0.1-SNAPSHOT.jar .'
                      sh 'docker build -t gateway:0.1 .'
                      sh 'docker run -d -p 9001:9001 gateway:0.1'
                 }
                 dir('Mid Tier/StockMarketCharting/auth-server') {
-                     sh 'cp -f target/*.jar .'
+                     sh 'cp -f target/auth-0.0.1-SNAPSHOT.jar .'
                      sh 'docker build -t auth:0.1 .'
                      sh 'docker run -d -p 8100:8100 auth:0.1'
                 }
                 dir('Mid Tier/StockMarketCharting/user-server') {
-                     sh 'cp -f target/*.jar .'
+                     sh 'cp -f target/user-0.0.1-SNAPSHOT.jar .'
                      sh 'docker build -t userserver:0.1 .'
                      sh 'docker run -d -p 8089:8089 userserver:0.1'
                 }
                 dir('Mid Tier/StockMarketCharting/admin-server') {
-                     sh 'cp -f target/*.jar .'
+                     sh 'cp -f target/admin-0.0.1-SNAPSHOT.jar .'
                      sh 'docker build -t adminserver:0.1 .'
                      sh 'docker run -d -p 8099:8099 adminserver:0.1'
                 }
